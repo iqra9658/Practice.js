@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Stock Manager</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body class="min-h-screen bg-[#0b110e] text-[#f1f5f2]">
+
+    <main class="mx-auto max-w-7xl px-5 py-10 md:px-10 lg:py-14">
+
+        <header class="mb-12">
+            <p class="mb-3 text-sm font-medium uppercase tracking-[0.3em] text-emerald-400">
+                Inventory Dashboard
+            </p>
+
+            <h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+                Smart Stock <span class="text-emerald-400">Manager.</span>
+            </h1>
+
+            <p class="mt-4 max-w-xl text-sm leading-7 text-gray-400 sm:text-base">
+                Manage your products, monitor stock levels, and
+                understand your inventory at a glance.
+            </p>
+        </header>
+
+        <section class="mb-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+            <article class="summary-card rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <p class="text-sm text-gray-400">Total Products</p>
+                <h2 id="totalProducts" class="mt-5 text-4xl font-semibold text-emerald-300">0</h2>
+                <p class="mt-3 text-xs text-gray-500">Products in your inventory</p>
+            </article>
+
+            <article class="summary-card rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <p class="text-sm text-gray-400">Inventory Value</p>
+                <h2 id="inventoryValue" class="mt-5 text-4xl font-semibold text-emerald-300">₹0</h2>
+                <p class="mt-3 text-xs text-gray-500">Total value of available stock</p>
+            </article>
+
+            <article class="summary-card rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                <p class="text-sm text-gray-400">Low Stock Items</p>
+                <h2 id="lowStockCount" class="mt-5 text-4xl font-semibold text-amber-300">0</h2>
+                <p class="mt-3 text-xs text-gray-500">Items that need attention</p>
+            </article>
+
+        </section>
+
+        <section class="add-product-section mb-14 rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+
+            <div class="mb-6">
+                <p class="mb-2 text-xs uppercase tracking-widest text-emerald-400">
+                    Expand your inventory
+                </p>
+                <h2 class="text-2xl font-semibold">Add New Product</h2>
+            </div>
+
+            <form id="addProductForm" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="Product name"
+                    required
+                    class="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none focus:border-emerald-400"
+                >
+
+                <input
+                    type="number"
+                    id="productPrice"
+                    placeholder="Price (₹)"
+                    min="0.01"
+                    step="0.01"
+                    required
+                    class="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none focus:border-emerald-400"
+                >
+
+                <input
+                    type="number"
+                    id="productStock"
+                    placeholder="Quantity"
+                    min="0"
+                    step="1"
+                    required
+                    class="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white outline-none focus:border-emerald-400"
+                >
+
+                <button
+                    type="submit"
+                    class="rounded-xl bg-emerald-400 px-5 py-3 font-semibold text-[#0b110e] transition hover:bg-emerald-300 sm:col-span-3"
+                >
+                    + Add Product
+                </button>
+
+            </form>
+
+        </section>
+
+        <section>
+
+            <div class="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                <div>
+                    <p class="mb-2 text-xs uppercase tracking-widest text-emerald-400">
+                        Your collection
+                    </p>
+                    <h2 class="text-2xl font-semibold sm:text-3xl">Product Inventory</h2>
+                </div>
+
+                <span class="text-sm text-gray-500">
+                    Manage your stock efficiently
+                </span>
+            </div>
+
+            <div class="mb-6">
+                <label for="searchInput" class="sr-only">Search products</label>
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Search products by name..."
+                    class="w-full rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm text-white outline-none transition placeholder:text-gray-500 focus:border-emerald-400/60 sm:max-w-md"
+                >
+            </div>
+
+            <div class="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02]">
+
+                <div class="grid grid-cols-12 gap-3 border-b border-white/10 px-5 py-4 text-xs font-medium uppercase tracking-wider text-gray-500 sm:px-7">
+                    <p class="col-span-4 sm:col-span-3">Product</p>
+                    <p class="col-span-2">Price</p>
+                    <p class="col-span-2">Quantity</p>
+                    <p class="col-span-4 sm:col-span-2">Status</p>
+                    <p class="col-span-12 sm:col-span-3 sm:text-right">Actions</p>
+                </div>
+
+                <div id="productList">
+                    <p class="p-8 text-center text-sm text-gray-500">
+                        Products will appear here.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <footer class="mt-14 border-t border-white/10 pt-6">
+            <p class="text-xs text-gray-600">
+                Smart Stock Manager · Built with HTML, Tailwind CSS and JavaScript
+            </p>
+        </footer>
+
+    </main>
+
+</body>
+
+</html>
