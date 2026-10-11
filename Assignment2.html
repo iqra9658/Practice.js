@@ -1,0 +1,73 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Inventory</title>
+</head>
+<body>
+    <script>
+        let products = [
+            { name: "laptop", price: 60000, stock: 10 },
+            { name: "Mouse", price: 800, stock: 3 },
+            { name: "Keyboard", price: 1200, stock: 0 },
+            { name: "Monitor", price: 15000, stock: 7 },
+            { name: "Headphones", price: 2500, stock: 2 }
+        ];
+
+        let totalValue = 0;
+
+        for (let product of products) {
+            console.log(product.name, product.price, product.stock);
+            totalValue = totalValue + product.price * product.stock;
+        }
+
+        console.log("Total inventory value:", totalValue);
+
+        if (products.length > 0) {
+            let mostExpensive = products[0];
+
+            for (let product of products) {
+                if (product.price > mostExpensive.price) {
+                    mostExpensive = product;
+                }
+            }
+
+            console.log("Most expensive product:", mostExpensive.name);
+            console.log("Highest price:", mostExpensive.price);
+        } else {
+            console.log("Inventory is empty");
+        }
+
+        if (products.length > 0) {
+            let highestStock = products[0];
+
+            for (let product of products) {
+                if (product.stock > highestStock.stock) {
+                    highestStock = product;
+                }
+            }
+
+            console.log("Highest-stock product:", highestStock.name);
+            console.log("Units in stock:", highestStock.stock);
+        } else {
+            console.log("Inventory is empty");
+        }
+
+        if (products.length > 0) {
+            let priceTotal = 0;
+
+            for (let product of products) {
+                priceTotal = priceTotal + product.price;
+            }
+
+            let averagePrice = priceTotal / products.length;
+
+            console.log("Average product price:", averagePrice);
+        } else {
+            console.log("Cannot calculate average: inventory is empty");
+        }
+    </script>
+</body>
+</html>

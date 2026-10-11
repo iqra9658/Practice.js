@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>   let userWins=0;
+        let computerWins=0;  
+       for(let round =1; round<=3;round++){
+
+        
+             let userChoice =prompt("choose rock , paper , scissors");
+     let choices =["rock","paper","scissors"];
+     let computerChoice=choices[Math.floor(choices.length*Math.random())];
+     if(userChoice==computerChoice){
+        console.log("Draw");
+     }   
+    else if(userChoice=="rock" && computerChoice=="scissors") {
+        console.log("User wins");
+        userWins++;
+     }
+    else if(userChoice=="paper" && computerChoice=="rock") {
+        console.log("User wins");
+         userWins++;
+     }
+    else if(userChoice=="scissors" && computerChoice=="paper") {
+        console.log("User wins");
+        userWins++;
+     }
+     else{
+        console.log("computer wins");
+        computerWins++;
+     }
+    if( userWins==2|| computerWins==2){
+        break;
+    }
+        
+     }
+     if(userWins>computerWins){
+    console.log("user is the winner!");
+     }else if(computerWins> userWins){
+        console.log("Computer is the winner!");
+        
+     }else{
+        console.log("Draw");
+        
+
+     }
+    </script>
+</body>
+</html>
